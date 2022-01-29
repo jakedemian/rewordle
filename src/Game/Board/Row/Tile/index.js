@@ -3,10 +3,17 @@ import "./Tile.css";
 import isLetter from "../../../../common/utils/isLetter";
 
 const Tile = (props) => {
-  const { isActive, onKeyPressed, values, setValue, index } = props;
+  const {
+    isActive,
+    onKeyPressed,
+    values,
+    setValue,
+    index,
+    revealCorrect,
+    correctWord,
+  } = props;
   const ref = useRef(null);
   const value = values[index];
-  //console.log("my value", values, values[index]);
 
   useEffect(() => {
     if (isActive) {
@@ -35,11 +42,79 @@ const Tile = (props) => {
     onKeyPressed(key);
   };
 
+  const getTileColor = () => {
+    if (!revealCorrect || !values) {
+      return null;
+    }
+
+    let correctWordCopy = correctWord.toUpperCase();
+    const guessedLetter = values[index].toUpperCase();
+    const correctLetter = correctWordCopy[index];
+
+    const guessedWord = values.reduce((acc, current) => {
+      acc += current;
+      return acc;
+    }, "");
+    let slicedGuessWord = guessedWord.slice(0, index);
+
+    if (index == 3) {
+      //debugger;
+    }
+
+    if (guessedLetter === correctLetter) {
+      return "tile--green";
+    }
+
+    if (correctWordCopy.includes(guessedLetter)) {
+      // we found at least one match
+
+      let occuranceCount = (
+        correctWordCopy.match(new RegExp(guessedLetter, "g")) || []
+      ).length;
+
+      //get number of green occurances, subtract from total
+      for (let i = 0; i < guessedWord.length; i++) {
+        const _guessedLetter = values[i];
+        const correctLetter = correctWordCopy[i];
+
+        // removed correct letters from the sliced guess word, we dont care,
+        // about them anymore for calculating yellow tiles
+        if (
+          _guessedLetter === correctLetter &&
+          _guessedLetter === guessedLetter
+        ) {
+          occuranceCount -= 1;
+
+          if (i + 1 >= slicedGuessWord.length) {
+            slicedGuessWord = slicedGuessWord.slice(0, i) + " ";
+          } else {
+            slicedGuessWord =
+              slicedGuessWord.slice(0, i) + " " + slicedGuessWord.slice(i + 1);
+          }
+        }
+      }
+
+      //get yellow occurances BEFORE this one in the guessed word
+      let yellowCount = (
+        slicedGuessWord.match(new RegExp(guessedLetter, "g")) || []
+      ).length;
+      occuranceCount -= yellowCount;
+
+      if (occuranceCount > 0) {
+        return "tile--yellow";
+      }
+    }
+
+    return null;
+  };
+
   return (
     <div className="tile">
       <input
         ref={ref}
-        className={`tile--input ${isActive ? "tile--input--focused" : ""}`}
+        className={`tile--input ${
+          isActive ? "tile--input--focused" : ""
+        } ${getTileColor()}`}
         type="text"
         value={value}
         onKeyDown={handleChange}

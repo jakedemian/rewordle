@@ -1,5 +1,8 @@
 .App {
   text-align: center;
-  background-color: #111;
   height: 100vw;
+}
+
+body {
+  background-color: #111;
 }

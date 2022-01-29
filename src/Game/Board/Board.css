@@ -1,4 +1,24 @@
 .board {
+  position: relative;
   display: flex;
   flex-direction: column;
+}
+
+.game-over {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 100%;
+  transform: translate(-50%, -120px);
+}
+
+.game-over--text {
+  font-size: 48px;
+  color: white;
+  margin: 0;
+}
+
+.game-over--button {
+  width: 100px;
+  height: 30px;
 }

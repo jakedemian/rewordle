@@ -4,7 +4,7 @@ import "./Row.css";
 import isLetter from "../../../common/utils/isLetter";
 
 const Row = (props) => {
-  const { isActive } = props;
+  const { isActive, submitWord, revealCorrect, correctWord } = props;
   const [activeTile, setActiveTile] = useState(null);
   const [values, setValues] = useState(["", "", "", "", "", ""]);
 
@@ -19,17 +19,6 @@ const Row = (props) => {
       setActiveTile(0);
     } else {
       setActiveTile(null);
-    }
-
-    if (isActive && !window.onkeydown) {
-      // FIXME I think the big issue i've been having is that since this is calling
-      // onRowKeyPressed inside a window.on function, it is outside the React
-      // scope.  you can see this by the fact that values is always empty!!
-      // it also explains why my activeTile was always 0 inside this function!
-      // i need to remove this and do it in a reacty way
-      window.onkeydown = (e) => {
-        onRowKeyPressed(e);
-      };
     }
   }, [isActive]);
 
@@ -73,18 +62,21 @@ const Row = (props) => {
     if (key === "Backspace") {
       tryDecrement();
     } else if (key === "Enter") {
-      // if (isRowFilled()) {
-      //   console.log("submitting word!!!");
-      // }
+      if (isRowFilled()) {
+        submitWord(getGuessedWord());
+      }
     }
   };
 
-  const isRowFilled = () => {
-    const copy = [...values];
+  const getGuessedWord = () => {
+    return values.reduce((acc, current) => {
+      acc += current;
+      return acc;
+    }, "");
+  };
 
-    console.log("values", copy);
+  const isRowFilled = () => {
     return values.every((v) => {
-      console.log("value is", v);
       return !!v;
     });
   };
@@ -96,7 +88,7 @@ const Row = (props) => {
   };
 
   return (
-    <div className="row">
+    <div className="row" onKeyDown={onRowKeyPressed}>
       {[0, 1, 2, 3, 4, 5].map((element, index) => {
         return (
           <Tile
@@ -108,6 +100,8 @@ const Row = (props) => {
             setValue={(newValue) => {
               updateValues(index, newValue);
             }}
+            revealCorrect={revealCorrect}
+            correctWord={correctWord}
           />
         );
       })}

@@ -16,3 +16,11 @@
 .tile--input--focused {
   border: 1px solid white;
 }
+
+.tile--green {
+  background-color: green;
+}
+
+.tile--yellow {
+  background-color: yellow;
+}

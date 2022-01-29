@@ -1,4 +1,4 @@
-export const wordList = [
+const wordList = [
   "abacus",
   "abased",
   "abated",
@@ -2502,3 +2502,5 @@ export const wordList = [
   "zombie",
   "zoning",
 ];
+
+export default wordList;
