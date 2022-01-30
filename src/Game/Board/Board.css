@@ -9,7 +9,7 @@
   left: 50%;
   top: 0;
   width: 100%;
-  transform: translate(-50%, -120px);
+  transform: translate(-50%, -130px);
 }
 
 .game-over--text {
@@ -21,4 +21,10 @@
 .game-over--button {
   width: 100px;
   height: 30px;
+}
+
+.game-over--word-reveal {
+  margin-top: 0;
+  margin-bottom: 4px;
+  color: white;
 }

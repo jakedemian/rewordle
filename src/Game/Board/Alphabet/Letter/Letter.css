@@ -1,26 +1,31 @@
 .letter {
   display: inline-block;
-  margin: 16px 12px;
+  margin: 12px 8px;
   background-color: #030303;
   color: #aaa;
   font-size: 24px;
   text-align: center;
-  padding: 24px 16px;
+  padding: 16px 8px;
   width: 30px;
+  border-radius: 4px;
+  border: 1px solid #444;
 }
 
 .letter--green {
   background-color: #18d318;
   color: black;
+  border: none;
 }
 
 .letter--yellow {
   background-color: #e3bc00;
   color: black;
+  border: none;
 }
 
 .letter--gray {
   background-color: #0b0b0b;
   color: #444;
   filter: blur(3px);
+  border: none;
 }

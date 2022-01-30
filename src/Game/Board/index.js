@@ -3,6 +3,9 @@ import Row from "./Row";
 import "./Board.css";
 import wordList from "../../wordlist";
 
+const GAMEOVER_WIN = "win";
+const GAMEOVER_LOSS = "lose";
+
 const Board = (props) => {
   const { addGuessedWord, correctWord, setCorrectWord } = props;
   const [activeRow, setActiveRow] = useState(0);
@@ -19,12 +22,12 @@ const Board = (props) => {
     addGuessedWord(word);
 
     if (word.toUpperCase() === correctWord.toUpperCase()) {
-      setGameOver("win");
+      setGameOver(GAMEOVER_WIN);
       return;
     }
 
     if (activeRow + 1 > 6) {
-      setGameOver("lose");
+      setGameOver(GAMEOVER_LOSS);
     }
   };
 
@@ -37,8 +40,11 @@ const Board = (props) => {
       {gameOver && (
         <div className="game-over">
           <p className="game-over--text">
-            You {gameOver === "win" ? "won" : "lost"}
+            You {gameOver === GAMEOVER_WIN ? "won :)" : "lost :("}
           </p>
+          {gameOver === GAMEOVER_LOSS && (
+            <p className="game-over--word-reveal">{`The word was '${correctWord.toUpperCase()}'`}</p>
+          )}
           <button className="game-over--button" onClick={playAgain}>
             Play Again
           </button>
