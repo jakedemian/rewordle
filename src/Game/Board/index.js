@@ -3,22 +3,21 @@ import Row from "./Row";
 import "./Board.css";
 import wordList from "../../wordlist";
 
-const Board = () => {
+const Board = (props) => {
+  const { addGuessedWord, correctWord, setCorrectWord } = props;
   const [activeRow, setActiveRow] = useState(0);
 
-  const [correctWord, setCorrectWord] = useState(
-    wordList[Math.floor(Math.random() * wordList.length)]
-  );
   const [gameOver, setGameOver] = useState(false);
 
-  useEffect(() => {
-    document.addEventListener("pointerdown", (e) => {
-      e.preventDefault();
-    });
-  }, []);
-
   const submitWord = (word) => {
+    if (!wordList.includes(word.toLowerCase())) {
+      // only accept real words!
+      // TODO some sort of style change
+      return;
+    }
+
     setActiveRow(activeRow + 1);
+    addGuessedWord(word);
 
     if (word.toUpperCase() === correctWord.toUpperCase()) {
       setGameOver("win");

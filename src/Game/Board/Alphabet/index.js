@@ -4,7 +4,8 @@ import "./Alphabet.css";
 
 const ALPHABET = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-const Alphabet = () => {
+const Alphabet = (props) => {
+  const { guessedWords, correctWord } = props;
   const [alphabetArray, setAlphabetArray] = useState(null);
 
   useEffect(() => {
@@ -18,7 +19,13 @@ const Alphabet = () => {
   return (
     <div className="alphabet">
       {alphabetArray?.map((letter, index) => {
-        return <Letter letter={letter} />;
+        return (
+          <Letter
+            letter={letter}
+            guessedWords={guessedWords}
+            correctWord={correctWord}
+          />
+        );
       })}
     </div>
   );

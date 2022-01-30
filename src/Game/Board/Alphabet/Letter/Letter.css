@@ -9,10 +9,10 @@
   width: 30px;
 }
 
-.letter--green {
+.tile--green {
   background-color: green;
 }
 
-.letter--yellow {
+.tile--yellow {
   background-color: yellow;
 }

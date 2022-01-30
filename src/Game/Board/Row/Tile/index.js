@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./Tile.css";
 import isLetter from "../../../../common/utils/isLetter";
+import { getLetterColorForWord } from "../../../../common/utils/getLetterColorForWord";
 
 const Tile = (props) => {
   const {
@@ -47,61 +48,14 @@ const Tile = (props) => {
       return null;
     }
 
-    let correctWordCopy = correctWord.toUpperCase();
     const guessedLetter = values[index].toUpperCase();
-    const correctLetter = correctWordCopy[index];
-
+    let correctWordCopy = correctWord.toUpperCase();
     const guessedWord = values.reduce((acc, current) => {
       acc += current;
       return acc;
     }, "");
-    let slicedGuessWord = guessedWord.slice(0, index);
 
-    if (guessedLetter === correctLetter) {
-      return "tile--green";
-    }
-
-    if (correctWordCopy.includes(guessedLetter)) {
-      // we found at least one match
-
-      let occuranceCount = (
-        correctWordCopy.match(new RegExp(guessedLetter, "g")) || []
-      ).length;
-
-      //get number of green occurances, subtract from total
-      for (let i = 0; i < guessedWord.length; i++) {
-        const _guessedLetter = values[i];
-        const correctLetter = correctWordCopy[i];
-
-        // removed correct letters from the sliced guess word, we dont care,
-        // about them anymore for calculating yellow tiles
-        if (
-          _guessedLetter === correctLetter &&
-          _guessedLetter === guessedLetter
-        ) {
-          occuranceCount -= 1;
-
-          if (i + 1 >= slicedGuessWord.length) {
-            slicedGuessWord = slicedGuessWord.slice(0, i) + " ";
-          } else {
-            slicedGuessWord =
-              slicedGuessWord.slice(0, i) + " " + slicedGuessWord.slice(i + 1);
-          }
-        }
-      }
-
-      //get yellow occurances BEFORE this one in the guessed word
-      let yellowCount = (
-        slicedGuessWord.match(new RegExp(guessedLetter, "g")) || []
-      ).length;
-      occuranceCount -= yellowCount;
-
-      if (occuranceCount > 0) {
-        return "tile--yellow";
-      }
-    }
-
-    return null;
+    return getLetterColorForWord(index, guessedWord, correctWordCopy);
   };
 
   return (
