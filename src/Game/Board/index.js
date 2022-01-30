@@ -17,10 +17,6 @@ const Board = () => {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(correctWord);
-  }, [correctWord]);
-
   const submitWord = (word) => {
     setActiveRow(activeRow + 1);
 
@@ -42,7 +38,7 @@ const Board = () => {
     <div className="board">
       {gameOver && (
         <div className="game-over">
-          <p class="game-over--text">
+          <p className="game-over--text">
             You {gameOver === "win" ? "won" : "lost"}
           </p>
           <button className="game-over--button" onClick={playAgain}>
@@ -53,6 +49,7 @@ const Board = () => {
       {[0, 1, 2, 3, 4, 5, 6].map((a, index) => {
         return (
           <Row
+            key={index}
             isActive={activeRow === index}
             submitWord={submitWord}
             revealCorrect={activeRow > index}

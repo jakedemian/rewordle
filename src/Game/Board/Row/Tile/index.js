@@ -57,10 +57,6 @@ const Tile = (props) => {
     }, "");
     let slicedGuessWord = guessedWord.slice(0, index);
 
-    if (index == 3) {
-      //debugger;
-    }
-
     if (guessedLetter === correctLetter) {
       return "tile--green";
     }
