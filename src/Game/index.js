@@ -15,8 +15,6 @@ const Game = () => {
     setCorrectWord(wordList[Math.floor(Math.random() * wordList.length)]);
   }, []);
 
-  console.log(correctWord);
-
   return (
     <div className="game">
       <Board

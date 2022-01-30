@@ -2,14 +2,16 @@ import React, { useEffect, useState } from "react";
 import Tile from "./Tile";
 import "./Row.css";
 import isLetter from "../../../common/utils/isLetter";
+import AwesomeDebouncePromise from "awesome-debounce-promise";
+
+const DEBOUNCE_TIME_MILLISECONDS = 10;
+const NUMBER_OF_TILES = 6;
 
 const Row = (props) => {
   const { isActive, submitWord, revealCorrect, correctWord, incorrectGuess } =
     props;
   const [activeTile, setActiveTile] = useState(null);
   const [values, setValues] = useState(["", "", "", "", "", ""]);
-
-  const numberOfTiles = 6;
 
   useEffect(() => {
     setValues(["", "", "", "", "", ""]);
@@ -24,14 +26,14 @@ const Row = (props) => {
   }, [isActive]);
 
   const tryIncrement = () => {
-    if (activeTile < numberOfTiles - 1) {
+    if (activeTile < NUMBER_OF_TILES - 1) {
       setActiveTile(activeTile + 1);
     }
   };
 
   const tryDecrement = () => {
     if (activeTile > 0) {
-      if (activeTile === numberOfTiles - 1 && !!values[numberOfTiles - 1]) {
+      if (activeTile === NUMBER_OF_TILES - 1 && !!values[NUMBER_OF_TILES - 1]) {
         updateValues(activeTile, "");
       } else {
         updateValues(activeTile - 1, "");
@@ -42,7 +44,7 @@ const Row = (props) => {
     }
   };
 
-  const onKeyPressed = (key) => {
+  const onKeyPressed = AwesomeDebouncePromise((key) => {
     if (!isActive) {
       return;
     }
@@ -52,9 +54,9 @@ const Row = (props) => {
     } else if (key === "Backspace") {
       tryDecrement();
     }
-  };
+  }, DEBOUNCE_TIME_MILLISECONDS);
 
-  const onRowKeyPressed = (e) => {
+  const onRowKeyPressed = AwesomeDebouncePromise((e) => {
     if (!isActive) {
       return;
     }
@@ -71,7 +73,7 @@ const Row = (props) => {
         submitWord(getGuessedWord());
       }
     }
-  };
+  }, DEBOUNCE_TIME_MILLISECONDS);
 
   const getGuessedWord = () => {
     return values.reduce((acc, current) => {
