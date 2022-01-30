@@ -57,7 +57,7 @@ const Board = (props) => {
         return (
           <Row
             key={index}
-            isActive={activeRow === index}
+            isActive={activeRow === index && !gameOver}
             submitWord={submitWord}
             revealCorrect={activeRow > index}
             correctWord={correctWord}

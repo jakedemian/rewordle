@@ -3,6 +3,8 @@ import "./Tile.css";
 import isLetter from "../../../../common/utils/isLetter";
 import { getLetterColorForWord } from "../../../../common/utils/getLetterColorForWord";
 
+const WIGGLE_TILE_DELAY = 50;
+
 const Tile = (props) => {
   const {
     isActive,
@@ -17,6 +19,8 @@ const Tile = (props) => {
   const ref = useRef(null);
   const value = values[index];
 
+  const [wiggle, setWiggle] = useState(null);
+
   useEffect(() => {
     if (isActive) {
       setTimeout(() => ref.current.focus(), 1);
@@ -30,6 +34,14 @@ const Tile = (props) => {
       setTimeout(() => ref.current.blur(), 1);
     }
   }, [ref]);
+
+  useEffect(() => {
+    if (revealCorrect) {
+      setTimeout(() => {
+        setWiggle(true);
+      }, index * WIGGLE_TILE_DELAY);
+    }
+  }, [revealCorrect]);
 
   const handleChange = (e) => {
     const { key } = e;
@@ -56,12 +68,11 @@ const Tile = (props) => {
       return acc;
     }, "");
 
-    //debugger;
     return getLetterColorForWord(index, guessedWord, correctWordCopy);
   };
 
   return (
-    <div className="tile">
+    <div className={`tile ${wiggle && "tile--wiggle"}`}>
       <input
         ref={ref}
         className={`tile--input ${
