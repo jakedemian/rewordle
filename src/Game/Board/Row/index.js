@@ -31,8 +31,12 @@ const Row = (props) => {
 
   const tryDecrement = () => {
     if (activeTile > 0) {
-      setActiveTile(activeTile - 1);
-      updateValues(activeTile, "");
+      if (activeTile === numberOfTiles - 1 && !!values[numberOfTiles - 1]) {
+        updateValues(activeTile, "");
+      } else {
+        updateValues(activeTile - 1, "");
+        setActiveTile(activeTile - 1);
+      }
     } else if (activeTile === 0) {
       updateValues(activeTile, "");
     }
