@@ -45,7 +45,7 @@ const Tile = (props) => {
 
   const handleChange = (e) => {
     const { key } = e;
-    if (isLetter(key)) {
+    if (isLetter(key) || key === "6") {
       setValue(key.toUpperCase());
     }
 

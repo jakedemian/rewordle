@@ -16,14 +16,25 @@ const Game = () => {
   }, []);
 
   return (
-    <div className="game">
-      <Board
-        addGuessedWord={addGuessedWord}
-        correctWord={correctWord}
-        setCorrectWord={setCorrectWord} // TODO the whole game over thing should happen up here!
-      />
-      <Alphabet guessedWords={guessedWords} correctWord={correctWord} />
-    </div>
+    <>
+      <div className="title">
+        <h1>Rewordle</h1>
+        <p>
+          Modified clone of{" "}
+          <a href="https://www.powerlanguage.co.uk/wordle/" target="_blank">
+            Wordle
+          </a>
+        </p>
+      </div>
+      <div className="game">
+        <Board
+          addGuessedWord={addGuessedWord}
+          correctWord={correctWord}
+          setCorrectWord={setCorrectWord} // TODO the whole game over thing should happen up here!
+        />
+        <Alphabet guessedWords={guessedWords} correctWord={correctWord} />
+      </div>
+    </>
   );
 };
 
