@@ -21,6 +21,7 @@ const Alphabet = (props) => {
       {alphabetArray?.map((letter, index) => {
         return (
           <Letter
+            key={index}
             letter={letter}
             guessedWords={guessedWords}
             correctWord={correctWord}

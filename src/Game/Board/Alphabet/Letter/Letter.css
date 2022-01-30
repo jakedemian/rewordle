@@ -1,7 +1,7 @@
 .letter {
   display: inline-block;
   margin: 16px 12px;
-  background-color: #070707;
+  background-color: #030303;
   color: #aaa;
   font-size: 24px;
   text-align: center;
@@ -9,10 +9,18 @@
   width: 30px;
 }
 
-.tile--green {
-  background-color: green;
+.letter--green {
+  background-color: #18d318;
+  color: black;
 }
 
-.tile--yellow {
-  background-color: yellow;
+.letter--yellow {
+  background-color: #e3bc00;
+  color: black;
+}
+
+.letter--gray {
+  background-color: #0b0b0b;
+  color: #444;
+  filter: blur(3px);
 }

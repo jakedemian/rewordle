@@ -11,7 +11,6 @@ const Board = (props) => {
 
   const submitWord = (word) => {
     if (!wordList.includes(word.toLowerCase())) {
-      // only accept real words!
       // TODO some sort of style change
       return;
     }

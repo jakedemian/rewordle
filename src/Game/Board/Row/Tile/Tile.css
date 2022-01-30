@@ -17,10 +17,10 @@
   border: 1px solid white;
 }
 
-.tile--green {
-  background-color: green;
+.color--green {
+  background-color: #18d318;
 }
 
-.tile--yellow {
+.color--yellow {
   background-color: #e3bc00;
 }

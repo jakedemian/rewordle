@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import wordList from "../wordlist";
 import Board from "./Board";
 import Alphabet from "./Board/Alphabet";
@@ -6,13 +6,16 @@ import "./Game.css";
 
 const Game = () => {
   const [guessedWords, setGuessedWords] = useState([]);
-  const [correctWord, setCorrectWord] = useState(
-    //wordList[Math.floor(Math.random() * wordList.length)]
-    "should"
-  );
+  const [correctWord, setCorrectWord] = useState(null);
   const addGuessedWord = (word) => {
     setGuessedWords([...guessedWords, word]);
   };
+
+  useEffect(() => {
+    setCorrectWord(wordList[Math.floor(Math.random() * wordList.length)]);
+  }, []);
+
+  console.log(correctWord);
 
   return (
     <div className="game">

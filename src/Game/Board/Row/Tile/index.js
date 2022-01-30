@@ -55,6 +55,7 @@ const Tile = (props) => {
       return acc;
     }, "");
 
+    //debugger;
     return getLetterColorForWord(index, guessedWord, correctWordCopy);
   };
 

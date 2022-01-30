@@ -1,3 +1,5 @@
+import Colors from "../consts/Colors";
+
 export function getLetterColorForWord(letterIndex, guessedWord, correctWord) {
   const correctWordUpper = correctWord.toUpperCase();
   const guessedLetter = guessedWord[letterIndex].toUpperCase();
@@ -5,7 +7,7 @@ export function getLetterColorForWord(letterIndex, guessedWord, correctWord) {
   let slicedGuessWord = guessedWord.slice(0, letterIndex);
 
   if (guessedLetter === correctLetter) {
-    return "tile--green";
+    return Colors.GREEN;
   }
 
   if (correctWordUpper.includes(guessedLetter)) {
@@ -44,7 +46,7 @@ export function getLetterColorForWord(letterIndex, guessedWord, correctWord) {
     occuranceCount -= yellowCount;
 
     if (occuranceCount > 0) {
-      return "tile--yellow";
+      return Colors.YELLOW;
     }
   }
 
@@ -71,10 +73,23 @@ export function getLetterColorForGuessedWords(
         guessedWord,
         correctWord
       );
-      if (guessedLetterColor === "tile--green") {
-        return "tile--green";
-      } else if (guessedLetterColor === "tile--yellow") {
-        color = "tile--yellow";
+      if (guessedLetterColor === Colors.GREEN) {
+        return Colors.GREEN;
+      } else if (guessedLetterColor === Colors.YELLOW) {
+        color = Colors.YELLOW;
+      }
+    }
+  }
+
+  if (!color) {
+    // have we guessed this letter yet?  if so, its gray
+    for (let gw = 0; gw < guessedWords.length; gw++) {
+      const guessedWord = guessedWords[gw];
+
+      for (let i = 0; i < guessedWord.length; i++) {
+        if (guessedWord[i] === letter) {
+          return Colors.GRAY;
+        }
       }
     }
   }
