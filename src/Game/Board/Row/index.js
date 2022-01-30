@@ -4,7 +4,8 @@ import "./Row.css";
 import isLetter from "../../../common/utils/isLetter";
 
 const Row = (props) => {
-  const { isActive, submitWord, revealCorrect, correctWord } = props;
+  const { isActive, submitWord, revealCorrect, correctWord, incorrectGuess } =
+    props;
   const [activeTile, setActiveTile] = useState(null);
   const [values, setValues] = useState(["", "", "", "", "", ""]);
 
@@ -88,7 +89,7 @@ const Row = (props) => {
   };
 
   return (
-    <div className="row" onKeyDown={onRowKeyPressed}>
+    <div className={`row`} onKeyDown={onRowKeyPressed}>
       {[0, 1, 2, 3, 4, 5].map((element, index) => {
         return (
           <Tile
@@ -102,6 +103,7 @@ const Row = (props) => {
             }}
             revealCorrect={revealCorrect}
             correctWord={correctWord}
+            incorrectGuess={isActive && incorrectGuess}
           />
         );
       })}

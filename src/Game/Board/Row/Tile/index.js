@@ -12,6 +12,7 @@ const Tile = (props) => {
     index,
     revealCorrect,
     correctWord,
+    incorrectGuess,
   } = props;
   const ref = useRef(null);
   const value = values[index];
@@ -65,7 +66,7 @@ const Tile = (props) => {
         ref={ref}
         className={`tile--input ${
           isActive ? "tile--input--focused" : ""
-        } ${getTileColor()}`}
+        } ${getTileColor()} ${incorrectGuess && "color--incorrect"}`}
         type="text"
         value={value}
         onKeyDown={handleChange}

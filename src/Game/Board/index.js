@@ -9,12 +9,15 @@ const GAMEOVER_LOSS = "lose";
 const Board = (props) => {
   const { addGuessedWord, correctWord, setCorrectWord } = props;
   const [activeRow, setActiveRow] = useState(0);
+  const [incorrectGuess, setIncorrectGuess] = useState(false);
 
   const [gameOver, setGameOver] = useState(false);
 
   const submitWord = (word) => {
     if (!wordList.includes(word.toLowerCase())) {
-      // TODO some sort of style change
+      setIncorrectGuess(true);
+      setTimeout(() => setIncorrectGuess(false), 200);
+
       return;
     }
 
@@ -58,6 +61,7 @@ const Board = (props) => {
             submitWord={submitWord}
             revealCorrect={activeRow > index}
             correctWord={correctWord}
+            incorrectGuess={incorrectGuess}
           />
         );
       })}

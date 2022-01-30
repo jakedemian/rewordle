@@ -11,6 +11,7 @@
   border: 1px solid #555;
   color: white;
   caret-color: transparent;
+  transition: background-color 0.2s;
 }
 
 .tile--input--focused {
@@ -23,4 +24,8 @@
 
 .color--yellow {
   background-color: #e3bc00;
+}
+
+.color--incorrect {
+  background-color: red;
 }
